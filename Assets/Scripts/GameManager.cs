@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; } 
     public static float FireRate { get => attackRate; set => attackRate = value; }
 
-
+    public static event Action OnPlayerDamaged;
 
 
 private void Awake()
@@ -44,6 +45,7 @@ private void Awake()
         if(!isInvincible)
         {
             health -= damage;
+            OnPlayerDamaged?.Invoke();
             Debug.Log("Health: " + health + "/" + maxHealth);
             if (health <= 0)
             {
