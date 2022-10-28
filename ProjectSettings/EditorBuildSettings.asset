@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Rooms/CellarMain.unity
+    guid: 44c0c46868e73c449a72f836501abda9
+  - enabled: 1
+    path: Assets/Scenes/Rooms/CellarStart.unity
+    guid: 3397cd1e559cce94088e4c3b3ac58e35
+  - enabled: 1
+    path: Assets/Scenes/Rooms/CellarEmpty.unity
+    guid: d3b9e93eb78578940b5d64dd38c55e78
+  - enabled: 1
+    path: Assets/Scenes/Rooms/CellarEnd.unity
+    guid: 15cdc9697706af64eb5fb60a0d79239d
+  m_configObjects: {}
