@@ -31,4 +31,13 @@ public class RoomScript : MonoBehaviour
 
         return new Vector2(x * width, y * height);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            RoomController.instance.OnPlayerEnterRoom(this);
+        }
+    }
+
 }

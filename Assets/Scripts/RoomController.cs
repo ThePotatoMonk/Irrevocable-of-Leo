@@ -25,6 +25,8 @@ public class RoomController : MonoBehaviour
 
     public List<RoomScript> loadedRooms = new List<RoomScript>();
 
+    RoomScript currentRoom;
+
     bool isLoadingRoom = false;
 
     private void Awake()
@@ -48,6 +50,8 @@ public class RoomController : MonoBehaviour
         UpdateRoomQueue();
     }
 
+
+    // Updates the queue
     void UpdateRoomQueue() 
     {
         if(isLoadingRoom)
@@ -67,6 +71,7 @@ public class RoomController : MonoBehaviour
         StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
     }
 
+    // Loads scene (rooms)
     public void LoadScene(string name, int x, int y)
     {
         //Checks if room exists before loading new scene
@@ -102,6 +107,7 @@ public class RoomController : MonoBehaviour
         }
     }
 
+    // Sets room data like position for spawning rooms
     public void AddRoom(RoomScript room)
     {
         room.transform.position = new Vector2(currentLoadRoomData.X * room.width, currentLoadRoomData.Y * room.height);
@@ -114,8 +120,23 @@ public class RoomController : MonoBehaviour
         //Room is loaded
         isLoadingRoom = false;
 
+        if(loadedRooms.Count == 0)
+        {
+            CameraController.instance.currentRoom = room;
+        }
+
         //Adds room to list
         loadedRooms.Add(room); 
     }
+
+    // When player enters the room it sets current room
+    public void OnPlayerEnterRoom(RoomScript room)
+    {
+        CameraController.instance.currentRoom = room;
+        currentRoom = room;
+    }
+
+
+
 }
 
