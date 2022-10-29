@@ -25,13 +25,15 @@ public class RoomScript : MonoBehaviour
     }
 
 
-
+    // Gets room center
     public Vector3 GetRoomCenter()
     {
 
         return new Vector2(x * width, y * height);
     }
 
+
+    // Collision function
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")

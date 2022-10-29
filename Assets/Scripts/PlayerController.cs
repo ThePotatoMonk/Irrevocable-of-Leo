@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    // Shoots projectile
     private void Attack(float x, float y) // Bullet Function
     {
         // Makes new gameobject
@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    // Changes direction of player model
     private void Animate()
     {
         if (rb.velocity.x == 0)
@@ -111,7 +112,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Flip() // Flips Character GameObject
+    // Flips Character GameObject
+    private void Flip()
     {
         /* takes current scale and multiplies it by -1
          *  1 * -1 = -1 | -1 * -1 = 1*/

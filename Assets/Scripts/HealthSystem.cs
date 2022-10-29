@@ -62,6 +62,8 @@ public class HealthSystem : MonoBehaviour
         hearts = new List<HealthHeart>();
     }
 
+
+    //When player is damaged it invokes OnPlayerDamaged and 
     private void OnEnable()
     {
         GameManager.OnPlayerDamaged += CreateHearts;
@@ -69,6 +71,6 @@ public class HealthSystem : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.OnPlayerDamaged -= CreateHearts;
+       
     }
 }

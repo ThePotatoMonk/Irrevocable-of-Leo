@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour
         UpdatePosition();
     }
 
+    // Updates position every frames
     private void UpdatePosition()
     {
         //If currentRoom is same then it doesnt do anything
@@ -30,6 +31,7 @@ public class CameraController : MonoBehaviour
 
         Vector3 targetPosition = CameraTargetPosition();
         
+        // Camera is moved from its position towards its target position at the speed 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speedChange);
     }
 

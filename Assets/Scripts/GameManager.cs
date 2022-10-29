@@ -39,7 +39,7 @@ private void Awake()
 
     }
 
-
+    // Take damage function
     public static void TakeDamage(int damage)
     {
         if(!isInvincible)
@@ -56,7 +56,7 @@ private void Awake()
 
     }
 
-    
+    // Move speed change
     public static void MoveSpeedChange(float speed)
     {
         moveSpeed += speed;

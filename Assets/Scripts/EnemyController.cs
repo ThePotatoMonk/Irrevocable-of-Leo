@@ -28,17 +28,23 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         Enemy(movement);
+
     }
 
+    // Moves enemy towards player
     private void Enemy(Vector2 direction)
     {
-        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime)); // Moves enemy towards player
+        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime)); 
     }
 
+    // Dead
     public void Death()
     {
         Destroy(gameObject);
     }
+
+
+    // When something collides with Enemy
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();

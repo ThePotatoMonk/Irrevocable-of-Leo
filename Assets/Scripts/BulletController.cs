@@ -26,6 +26,7 @@ public class BulletController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Projectile collision
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Enemy"))
