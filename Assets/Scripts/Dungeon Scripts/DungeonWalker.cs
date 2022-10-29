@@ -12,7 +12,7 @@ public class DungeonWalker : MonoBehaviour
         Position = position;
     }
 
-
+    // Moves walker an int of 1 difference from the old position
     public Vector2Int Move(Dictionary<Direction, Vector2Int> movementMap)
     {
         Direction moveTarg = (Direction)Random.Range(0, movementMap.Count);

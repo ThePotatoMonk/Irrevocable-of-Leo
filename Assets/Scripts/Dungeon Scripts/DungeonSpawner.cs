@@ -8,7 +8,7 @@ public class DungeonSpawner : MonoBehaviour
     private List<Vector2Int> dungeonRooms;
 
     private void Start()
-    {
+    {   
         dungeonRooms = DungeonWalkerController.GenerateDungeon(dungeonSpawnerData);
         SpawnRooms(dungeonRooms);
     }

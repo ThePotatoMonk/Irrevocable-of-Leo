@@ -12,4 +12,6 @@ public class DungeonSpawnerData : ScriptableObject
     public int walkersAmount;
     public int minLoop;
     public int maxLoop;
+
+
 }

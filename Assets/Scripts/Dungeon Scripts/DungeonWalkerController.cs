@@ -8,7 +8,7 @@ public class DungeonWalkerController : MonoBehaviour
     public enum Direction
     {up = 0, left = 1, down = 2, right = 3 }; 
 
-    public static List<Vector2Int> positionsOld = new List<Vector2Int>();
+    public static List<Vector2Int> positionNew = new List<Vector2Int>();
     private static readonly Dictionary<Direction, Vector2Int> movementMap = new Dictionary<Direction, Vector2Int>
     {
         {Direction.up, Vector2Int.up },
@@ -24,37 +24,29 @@ public class DungeonWalkerController : MonoBehaviour
         // Creates list of dungeon walkers
         List<DungeonWalker> dungeonWalkers = new List<DungeonWalker>();
 
-        // For every i that is less
+        // For every walkersAmount that I set it will add a new one
         for(int i = 0; i < dungeonData.walkersAmount; i++)
         {
-            Debug.Log(dungeonData.walkersAmount);
             dungeonWalkers.Add(new DungeonWalker(Vector2Int.zero));
         }
 
+        // Random number set between min and max loops
         int loops = Random.Range(dungeonData.minLoop, dungeonData.maxLoop);
 
+        // Iterates through whatever the random number is
         for(int i = 0; i < loops; i++)
         {
             foreach(DungeonWalker dungeonWalker in dungeonWalkers)
             {
+                // Moves new position by 1
                 Vector2Int Position = dungeonWalker.Move(movementMap);
-                positionsOld.Add(Position);
+                positionNew.Add(Position);
             }
         }
 
-        return positionsOld; 
+        return positionNew; 
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
