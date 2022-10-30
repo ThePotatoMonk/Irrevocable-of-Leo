@@ -7,8 +7,10 @@ public class RoomScript : MonoBehaviour
     //Variables
     public int height;
     public int width;
-    public int x;
-    public int y;
+    public int X;
+    public int Y;
+
+
 
     public Door topDoor;
     public Door bottomDoor;
@@ -16,6 +18,7 @@ public class RoomScript : MonoBehaviour
     public Door rightDoor;
 
     public List<Door> doors = new List<Door>();
+    private bool updatedDoors;
 
     // Start is called before the first frame update
     void Start()
@@ -53,11 +56,19 @@ public class RoomScript : MonoBehaviour
 
     }
 
+    private void Update()
+    { 
+        if(name.Contains("Boss") && !updatedDoors)
+        {
+            RemoveDoors();
+            updatedDoors = true;
+        }
+    }
     // Gets room center
     public Vector3 GetRoomCenter()
     {
 
-        return new Vector2(x * width, y * height);
+        return new Vector2(X * width, Y * height);
     }
 
 
@@ -99,35 +110,39 @@ public class RoomScript : MonoBehaviour
 
     public RoomScript GetTop()
     {
-        if (RoomController.instance.RoomChecker(x, y + 1))
+        if (RoomController.instance.RoomChecker(X, Y + 1))
         {
-            return RoomController.instance.RoomFinder(x, y + 1);
+            return RoomController.instance.RoomFinder(X, Y + 1);
         }
         return null;
     }
     public RoomScript GetBottom()
     {
-        if (RoomController.instance.RoomChecker(x, y -1))
+        if (RoomController.instance.RoomChecker(X, Y -1))
         {
-            return RoomController.instance.RoomFinder(x, y - 1);
+            return RoomController.instance.RoomFinder(X, Y - 1);
         }
         return null;
     }
     public RoomScript GetLeft()
     {
-        if (RoomController.instance.RoomChecker(x - 1, y))
+        if (RoomController.instance.RoomChecker(X - 1, Y))
         {
-            return RoomController.instance.RoomFinder(x - 1, y);
+            return RoomController.instance.RoomFinder(X - 1, Y);
         }
         return null;
     }
     public RoomScript GetRight()
     {
-        if (RoomController.instance.RoomChecker(x + 1, y))
+        if (RoomController.instance.RoomChecker(X + 1, Y))
         {
-            return RoomController.instance.RoomFinder(x + 1, y);
+            return RoomController.instance.RoomFinder(X + 1, Y);
         }
         return null;
     }
-
+    public RoomScript(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
 }

@@ -1,7 +1,8 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 
 // Stores information
@@ -31,6 +32,9 @@ public class RoomController : MonoBehaviour
 
     bool isLoadingRoom = false;
 
+    bool bossSpawned = false;
+    bool newRooms = false;
+
     private void Awake()
     {
         instance = this; //Creates instance of "this" which is the room
@@ -57,9 +61,22 @@ public class RoomController : MonoBehaviour
             return;
         }
 
-        // If nothing in queue, nothing
+        // If nothing is in the queue
         if(loadRoomQueue.Count == 0)
         {
+            // If boss has not spawned then spawn boss
+            if(!bossSpawned)
+            {
+                StartCoroutine(BossSpawned());
+            }
+            else if(!bossSpawned && !newRooms)
+            {
+                foreach(RoomScript room in loadedRooms)
+                {
+                    room.RemoveDoors();
+                }
+                newRooms = true;
+            }
             return;
         }
 
@@ -85,6 +102,29 @@ public class RoomController : MonoBehaviour
         }
     }
 
+    // Boss room is being spawned in
+    IEnumerator BossSpawned()
+    {
+        bossSpawned = true;
+        // Makes sure everything is updated
+        yield return new WaitForSeconds(0.5f);
+        // If there is nothing in queue
+        if(loadRoomQueue.Count == 0)
+        {
+            // Set boss room position
+            RoomScript bossRoom = loadedRooms[loadedRooms.Count - 1];
+            RoomScript tempRoom = new RoomScript(bossRoom.X, bossRoom.Y);
+            Destroy(bossRoom.gameObject);
+
+            // Setting temporary position
+            var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
+            loadedRooms.Remove(roomToRemove);
+            Debug.Log(tempRoom);
+            LoadScene("Boss", tempRoom.X, tempRoom.Y);
+
+        }
+    }
+
     // Loads scene (rooms)
     public void LoadScene(string name, int x, int y)
     {
@@ -107,14 +147,14 @@ public class RoomController : MonoBehaviour
     public bool RoomChecker(int x, int y)
     {
         // checks for each active rooms. returns true or false   
-        return loadedRooms.Find(item => item.x == x && item.y == y) != null;
+        return loadedRooms.Find(item => item.X == x && item.Y == y) != null;
     }
 
     // Finds room refernced in RoomScript
     public RoomScript RoomFinder(int x, int y)
     {
         
-        return loadedRooms.Find(item => item.x == x && item.y == y);
+        return loadedRooms.Find(item => item.X == x && item.Y == y);
     }
 
 
@@ -127,9 +167,9 @@ public class RoomController : MonoBehaviour
 
 
             // Sets room positions to the room data
-            room.x = currentLoadRoomData.X;
-            room.y = currentLoadRoomData.Y;
-            room.name = currentLevel + "-" + currentLoadRoomData.name + " " + room.x + ", " + room.y;
+            room.X = currentLoadRoomData.X;
+            room.Y = currentLoadRoomData.Y;
+            room.name = currentLevel + "-" + currentLoadRoomData.name + " " + room.X + ", " + room.Y;
             room.transform.parent = transform;
 
             //Room is loaded
@@ -142,7 +182,6 @@ public class RoomController : MonoBehaviour
 
             //Adds room to list
             loadedRooms.Add(room);
-            room.RemoveDoors();
         }
         else
         {

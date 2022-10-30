@@ -8,11 +8,13 @@ public class DungeonSpawner : MonoBehaviour
     public DungeonSpawnerData dungeonSpawnerData;
     private List<Vector2Int> dungeonRooms;
 
-    public string[] EmptyRooms = { "Empty", "Shop", "Treasure"}; // List of possible rooms  
-    private Vector2Int[] noBoss = {Vector2Int.up, Vector2Int.down,Vector2Int.left, Vector2Int.right};
+    public string[] EmptyRooms = { "Empty", "Shop", "Treasure"}; // List of possible rooms 
 
-    int bossSpawned = 0;
-   
+    
+    int l = 0;
+    private bool treasureSpawned;
+    private bool shopSpawned;
+
     private void Start()
     {
         dungeonRooms = DungeonWalkerController.GenerateDungeon(dungeonSpawnerData);
@@ -27,27 +29,30 @@ public class DungeonSpawner : MonoBehaviour
         // Iterates through each room and spawns empty room in each location
         foreach (Vector2Int roomLocation in rooms)
         {
-            if(roomLocation == dungeonRooms[dungeonRooms.Count - 1] && !(roomLocation == Vector2Int.zero))
-            {
-                RoomController.instance.LoadScene("Boss", roomLocation.x, roomLocation.y);
-                
-            }
-            else
-            {
-                RoomController.instance.LoadScene(EmptyRooms.RandomItem().ToString(), roomLocation.x, roomLocation.y);
-            }
-            
+            RoomController.instance.LoadScene(GetRandomRoom(), roomLocation.x, roomLocation.y);  
         }
     }
 
-
-}
-public static class ArrayExtensions
-{
-    // This is an extension method. RandomItem() will now exist on all arrays.
-    public static T RandomItem<T>(this T[] array)
+    private string GetRandomRoom()
     {
-        return array[Random.Range(0, array.Length)];
+        // Random number from 0-4
+        int i = Random.Range(0, 5);
+
+        // 1 in 5 chance for these two rooms to spawn
+        if (i == 0 && !treasureSpawned)
+        {
+            treasureSpawned = true;
+            return "Treasure";
+        }
+        else if(i == 1 && !shopSpawned)
+        {
+            shopSpawned = true;
+            return "Shop";
+        }
+        
+        // Other wise this spawns instead
+        return "Empty";
     }
+
 }
 

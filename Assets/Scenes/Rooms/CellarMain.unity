@@ -486,6 +486,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonSpawnerData: {fileID: 11400000, guid: fbcc753f7dda2784d932ee88eeb5f5be, type: 2}
+  EmptyRooms:
+  - Empty
+  - Shop
+  - Treasure
 --- !u!1 &1123146165
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1099061236784111702, guid: 901e5a4ac8ae15e428a8bb8e0165d270, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1099061236784112042, guid: 901e5a4ac8ae15e428a8bb8e0165d270, type: 3}
       propertyPath: m_RootOrder
