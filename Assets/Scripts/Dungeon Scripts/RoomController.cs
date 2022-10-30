@@ -68,7 +68,7 @@ public class RoomController : MonoBehaviour
             {
                 StartCoroutine(BossSpawned());
             }
-            else if(!bossSpawned && !newRooms)
+            else if(bossSpawned && !newRooms)
             {
                 foreach(RoomScript room in loadedRooms)
                 {
