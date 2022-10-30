@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Rooms/CellarEmpty.unity
     guid: d3b9e93eb78578940b5d64dd38c55e78
   - enabled: 1
-    path: Assets/Scenes/Rooms/CellarEnd.unity
+    path: Assets/Scenes/Rooms/CellarBoss.unity
     guid: 15cdc9697706af64eb5fb60a0d79239d
+  - enabled: 1
+    path: Assets/Scenes/Rooms/CellarShop.unity
+    guid: 40b070596ffb82e4b82163bc28953fd8
+  - enabled: 1
+    path: Assets/Scenes/Rooms/CellarTreasure.unity
+    guid: 75be44a6e8368f64faa8091e3706ca17
   m_configObjects: {}

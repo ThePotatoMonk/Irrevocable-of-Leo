@@ -9,7 +9,8 @@ using UnityEngine;
 public class DungeonSpawnerData : ScriptableObject
 {
     // Variables
-    public int walkersAmount;
+    public int walkersAmountMin;
+    public int walkersAmountMax;
     public int minLoop;
     public int maxLoop;
 

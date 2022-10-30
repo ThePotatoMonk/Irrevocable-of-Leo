@@ -110,29 +110,46 @@ public class RoomController : MonoBehaviour
         return loadedRooms.Find(item => item.x == x && item.y == y) != null;
     }
 
+    // Finds room refernced in RoomScript
+    public RoomScript RoomFinder(int x, int y)
+    {
+        
+        return loadedRooms.Find(item => item.x == x && item.y == y);
+    }
+
 
     // Sets room data like position for spawning rooms
     public void AddRoom(RoomScript room)
     {
-        room.transform.position = new Vector2(currentLoadRoomData.X * room.width, currentLoadRoomData.Y * room.height);
-
-
-        // Sets room positions to the room data
-        room.x = currentLoadRoomData.X;
-        room.y = currentLoadRoomData.Y;
-        room.name = currentLevel + "-" + currentLoadRoomData.name + " " + room.x + ", " + room.y;
-        room.transform.parent = transform;
-
-        //Room is loaded
-        isLoadingRoom = false;
-
-        if(loadedRooms.Count == 0)
+        if(!RoomChecker(currentLoadRoomData.X, currentLoadRoomData.Y))
         {
-            CameraController.instance.currentRoom = room;
+            room.transform.position = new Vector2(currentLoadRoomData.X * room.width, currentLoadRoomData.Y * room.height);
+
+
+            // Sets room positions to the room data
+            room.x = currentLoadRoomData.X;
+            room.y = currentLoadRoomData.Y;
+            room.name = currentLevel + "-" + currentLoadRoomData.name + " " + room.x + ", " + room.y;
+            room.transform.parent = transform;
+
+            //Room is loaded
+            isLoadingRoom = false;
+
+            if (loadedRooms.Count == 0)
+            {
+                CameraController.instance.currentRoom = room;
+            }
+
+            //Adds room to list
+            loadedRooms.Add(room);
+            room.RemoveDoors();
+        }
+        else
+        {
+            Destroy(room.gameObject);
+            isLoadingRoom = false;
         }
 
-        //Adds room to list
-        loadedRooms.Add(room); 
     }
 
     // When player enters the room it sets current room

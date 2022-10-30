@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aae05ab65292e449bd6886c64aa2587, type: 3}
   m_Name: DungeonSpawnerData
   m_EditorClassIdentifier: 
-  walkersAmount: 1
-  minLoop: 7
-  maxLoop: 18
+  walkersAmountMin: 1
+  walkersAmountMax: 1
+  minLoop: 9
+  maxLoop: 14

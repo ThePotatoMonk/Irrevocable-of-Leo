@@ -24,15 +24,15 @@ public class DungeonWalkerController : MonoBehaviour
         // Creates list of dungeon walkers
         List<DungeonWalker> dungeonWalkers = new List<DungeonWalker>();
 
-        // For every walkersAmount that I set it will add a new one
-        for(int i = 0; i < dungeonData.walkersAmount; i++)
+        // Random number of walkers between the constraints we set
+        int walkersAmount = Random.Range(dungeonData.walkersAmountMin, dungeonData.walkersAmountMax);
+        for(int i = 0; i < walkersAmount; i++)
         {
             dungeonWalkers.Add(new DungeonWalker(Vector2Int.zero));
         }
 
         // Random number set between min and max loops
         int loops = Random.Range(dungeonData.minLoop, dungeonData.maxLoop);
-
         // Iterates through whatever the random number is
         for(int i = 0; i < loops; i++)
         {
