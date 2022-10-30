@@ -30,10 +30,9 @@ public class RoomController : MonoBehaviour
 
     RoomScript currentRoom;
 
-    bool isLoadingRoom = false;
-
-    bool bossSpawned = false;
-    bool newRooms = false;
+    bool isLoadingRoom; 
+    bool bossSpawned;
+    bool newRooms;
 
     private void Awake()
     {
@@ -119,7 +118,6 @@ public class RoomController : MonoBehaviour
             // Setting temporary position
             var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
             loadedRooms.Remove(roomToRemove);
-            Debug.Log(tempRoom);
             LoadScene("Boss", tempRoom.X, tempRoom.Y);
 
         }

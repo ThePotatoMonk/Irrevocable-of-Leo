@@ -124,5 +124,8 @@ public class PlayerController : MonoBehaviour
         facingRight = !facingRight; // Equals opposite of current state
     }
 
- 
+    public void Death()
+    {
+        Destroy(gameObject);
+    }
 }

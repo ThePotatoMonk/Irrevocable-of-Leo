@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private static float attackRate = 0.5f;
 
     public static float timeInvincible = 2.0f;
-    private static bool isInvincible = false; 
+    private static bool isInvincible; 
 
     // makes these variables accessable in a certain way   
     public static int Health { get => health; set => health = value; }
@@ -74,7 +74,7 @@ private void Awake()
 
     private static void KillPlayer()
     {
-        Debug.Log("Killplayer");
+        
     }
 
 }

@@ -9,10 +9,13 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     public float moveSpeed = 3f;
+    public float health = 3f;
+    public float maxHealth = 3f;
 
     // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
         rb = this.GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player"); // Looks for player
     }
@@ -31,16 +34,21 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    // Enemy taking damage
+    public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount;
+
+        if(health <= 0 )
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Moves enemy towards player
     private void Enemy(Vector2 direction)
     {
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime)); 
-    }
-
-    // Dead
-    public void Death()
-    {
-        Destroy(gameObject);
     }
 
 
