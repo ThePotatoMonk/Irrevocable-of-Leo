@@ -11,7 +11,6 @@ public class DungeonSpawner : MonoBehaviour
     public string[] EmptyRooms = { "Empty", "Shop", "Treasure"}; // List of possible rooms 
 
     
-    int l = 0;
     private bool treasureSpawned;
     private bool shopSpawned;
 

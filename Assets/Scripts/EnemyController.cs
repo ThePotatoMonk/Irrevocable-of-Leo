@@ -11,6 +11,12 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 3f;
     public float health = 3f;
     public float maxHealth = 3f;
+    public static EnemyController Instance;
+
+    public bool idle;
+    public bool attacking;
+    public bool notInRoom = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +36,15 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Enemy(movement);
+        if(!notInRoom)
+        {
+            Enemy(movement);
+        }
+        else
+        {
+            Debug.Log("Idle");
+        }
+
 
     }
 

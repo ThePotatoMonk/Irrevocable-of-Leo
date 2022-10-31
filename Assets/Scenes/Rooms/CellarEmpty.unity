@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 115880742}
   - component: {fileID: 115880743}
   - component: {fileID: 115880744}
+  - component: {fileID: 115880745}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -157,6 +158,7 @@ Transform:
   - {fileID: 897825091}
   - {fileID: 1000637084}
   - {fileID: 1217260587}
+  - {fileID: 1217664122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 9
   width: 17
-  x: 0
-  y: 0
+  X: 0
+  Y: 0
   topDoor: {fileID: 0}
   bottomDoor: {fileID: 0}
   leftDoor: {fileID: 0}
@@ -207,6 +209,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15.791074, y: 8.594222}
   m_EdgeRadius: 0
+--- !u!114 &115880745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115880741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb8d94b6cbb85944979c5fc609815eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 1217664123}
+  spawnerData:
+  - name: Enemy
+    spawnerData: {fileID: 11400000, guid: f7a57c5acecabd1418a1d60ddb0a0e6d, type: 2}
 --- !u!1 &136415827
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,6 +1013,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorType: 1
+--- !u!1 &1217664121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1217664122}
+  - component: {fileID: 1217664123}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1217664122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217664121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 115880742}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1217664123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217664121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490216ca67da5cd45969d18968debb85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: {fileID: 0}
+  grid:
+    columns: 0
+    rows: 0
+    verticalOffset: 2.5
+    horizontalOffset: 6
+  gridTile: {fileID: 7025025628332443555, guid: e4264c2eb276ba441bca87f3f6ee92a4, type: 3}
+  availablePoints: []
 --- !u!1 &1773119496
 GameObject:
   m_ObjectHideFlags: 0

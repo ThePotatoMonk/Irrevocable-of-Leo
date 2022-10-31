@@ -7,9 +7,10 @@ public class MainMenu : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene("CellarMain");
+
     }
 
+    // Quits game
     public void Quit()
     {
         Application.Quit();

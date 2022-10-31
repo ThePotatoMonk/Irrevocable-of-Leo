@@ -37,12 +37,7 @@ public class RoomController : MonoBehaviour
     private void Awake()
     {
         instance = this; //Creates instance of "this" which is the room
-    }
-
-    private void Start()
-    {
-        
-
+        UpdateRooms();
     }
 
     private void Update()
@@ -74,6 +69,7 @@ public class RoomController : MonoBehaviour
                 {
                     room.RemoveDoors();
                 }
+                
                 newRooms = true;
             }
             return;
@@ -194,9 +190,45 @@ public class RoomController : MonoBehaviour
     {
         CameraController.instance.currentRoom = room;
         currentRoom = room;
+
+        UpdateRooms();
     }
 
+    private void UpdateRooms()
+    {
+        // For every loaded room
+        foreach (RoomScript room in loadedRooms)
+        {
 
+            if (currentRoom != room)
+            {
+                // List of all enemies
+                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
+                // If enemies are spawned
+                if (enemies != null)
+                {
+                    foreach (EnemyController enemy in enemies)
+                    {
+                        enemy.notInRoom = true;
+                    }
+                }
+            }
+            else
+            {
+                // List of all enemies
+                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
+                // If enemies are spawned
+                if (enemies != null)
+                {
+                    foreach (EnemyController enemy in enemies)
+                    {
+                        enemy.notInRoom = false;
+                    }
+                }
 
+            }
+
+        }
+    }
 }
 
