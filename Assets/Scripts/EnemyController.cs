@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 3f;
     public float health = 3f;
     public float maxHealth = 3f;
+
     public static EnemyController Instance;
+    public static event Action OnEnemyKilled;
 
     public bool idle;
     public bool attacking;
@@ -55,6 +58,7 @@ public class EnemyController : MonoBehaviour
 
         if(health <= 0 )
         {
+            OnEnemyKilled?.Invoke();
             Destroy(gameObject);
         }
     }
