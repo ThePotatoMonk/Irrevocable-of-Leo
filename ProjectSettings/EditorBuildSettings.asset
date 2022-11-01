@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rooms/CellarTreasure.unity
     guid: 75be44a6e8368f64faa8091e3706ca17
+  - enabled: 1
+    path: Assets/Scenes/LevelEnd.unity
+    guid: fc7c4c2736257b849a44ee99b8cc93f7
   m_configObjects: {}

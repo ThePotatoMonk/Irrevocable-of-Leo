@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
         if(health <= 0 )
         {
             OnEnemyKilled?.Invoke();
+            RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
             Destroy(gameObject);
         }
     }
@@ -71,7 +72,7 @@ public class EnemyController : MonoBehaviour
 
 
     // When something collides with Enemy
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 

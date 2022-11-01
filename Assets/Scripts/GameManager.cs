@@ -8,7 +8,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI highScoreText;
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI scoreText;    
+    [SerializeField] TextMeshProUGUI endHighScoreText;
+    [SerializeField] TextMeshProUGUI endScoreText;
 
     //Variables
     public static GameManager instance;
@@ -17,14 +19,19 @@ public class GameManager : MonoBehaviour
     private static float moveSpeed = 8f;    
     private static float attackRate = 0.5f;
 
-    public static float timeInvincible = 2.0f;
+    public static float timeInvincible = 1.5f;  
     private static bool isInvincible;
+    private static float invincibleTimer;
 
     int coinsAmount;
     int enemiesKilled;
     int playerScore;
 
+    public static bool gameEnded;
+
     protected float Timer;
+    private string highScore;
+    private string score;
 
     // makes these variables accessable in a certain way   
     public static int Health { get => health; set => health = value; }
@@ -33,6 +40,22 @@ public class GameManager : MonoBehaviour
     public static float FireRate { get => attackRate; set => attackRate = value; }
 
     public static event Action OnPlayerDamaged;
+    public static event Action OnPlayerDeath;
+
+    private void OnEnable()
+    {
+        Coin.OnCoinCollected += IncreaseCoins;
+        EnemyController.OnEnemyKilled += EnemiesKilled;
+        Boss.OnBossDeath += EndScreen;
+    }
+
+    private void OnDisable()
+    {
+        Coin.OnCoinCollected -= IncreaseCoins;
+        EnemyController.OnEnemyKilled -= EnemiesKilled;
+        Boss.OnBossDeath -= EndScreen;
+    }
+
 
 
     private void Awake()
@@ -45,6 +68,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        health = 6;
+        gameEnded = false;
         playerScore = 400;
         UpdateHighScoreText();
     }
@@ -54,21 +79,34 @@ public class GameManager : MonoBehaviour
     {
         PlayerScore();
         CheckHighScore();
+        if(isInvincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer < 0)
+                isInvincible = false;
+        }
     }
 
     // Take damage function
     public static void TakeDamage(int damage)
     {
-        if(!isInvincible)
+        if (damage > 0)
         {
-            health -= damage;
-            OnPlayerDamaged?.Invoke();
-            Debug.Log("Health: " + health + "/" + maxHealth);
-            if (health <= 0)
-            {
-                Debug.Log("Health < 0");
-                KillPlayer();
-            }
+            if (isInvincible)
+                return;
+ 
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+        }
+        health -= damage;
+        OnPlayerDamaged?.Invoke();
+        Debug.Log("Health: " + health + "/" + maxHealth);
+        
+        // When player dies
+        if (health <= 0)
+        {
+            Debug.Log("Health <= 0");
+            KillPlayer();
         }
 
     }
@@ -89,37 +127,37 @@ public class GameManager : MonoBehaviour
         Health = Mathf.Min(maxHealth, Health + healAmount);
     }
 
+    // When player dies
     private static void KillPlayer()
     {
-        
+        OnPlayerDeath?.Invoke();
+        gameEnded = true;
     }
 
-    private void OnEnable()
-    {
-        Coin.OnCoinCollected += IncreaseCoins;
-        EnemyController.OnEnemyKilled += EnemiesKilled;
-    }
-
-    private void OnDisable()
-    {
-        Coin.OnCoinCollected -= IncreaseCoins;
-        EnemyController.OnEnemyKilled -= EnemiesKilled;
-    }
 
     public void PlayerScore()
     {
-        Timer += Time.deltaTime;
-
-        // When the timer passes 1 second
-        if (Timer >= 1)
+        // If game has not ended do this
+        if(!gameEnded)
         {
-            // Resets timer, takes 1 away from playerScore
-            Timer = 0f;
-            playerScore--;
+            Timer += Time.deltaTime;
+
+            // When the timer passes 1 second
+            if (Timer >= 1)
+            {
+                // Resets timer, takes 1 away from playerScore
+                Timer = 0f;
+                playerScore--;
+            }
+            // Updates and checks high score
+            UpdateScore();
+            CheckHighScore();
         }
-        // Updates and checks high score
-        UpdateScore();
-        CheckHighScore();
+        else
+        {
+            UpdateScore();
+            CheckHighScore();
+        }
     }
 
     // When collecting coins this runs
@@ -135,15 +173,28 @@ public class GameManager : MonoBehaviour
     {
         enemiesKilled++;
         playerScore += 5;
-        //PlayerPrefs.SetInt("HighScore", enemiesKilled);
-        //PlayerPrefs.GetInt("HighScore");
         Debug.Log("Enemies Killed: " + enemiesKilled);
     }
+    
+
+    // End screen
+    public void EndScreen()
+    {
+        gameEnded = true;
+        endScoreText.text = score;
+    }
+
+
 
     private void UpdateScore()
     {
         // Updates score
-        scoreText.text = $"Score: {playerScore}";
+        if(!gameEnded)
+        {
+            score = $"Score: {playerScore}";
+            scoreText.text = score;
+        }
+        endScoreText.text = score;
     }
 
     private void CheckHighScore()
@@ -160,7 +211,9 @@ public class GameManager : MonoBehaviour
     private void UpdateHighScoreText()
     {
         // Loading high score from local computer
-        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
+        highScore = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
+        highScoreText.text = highScore;
+        endHighScoreText.text = highScore;
     }
 
 }

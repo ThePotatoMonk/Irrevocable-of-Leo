@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,7 +28,24 @@ public class PlayerController : MonoBehaviour
     public float timeFromZeroToMax;  // How long it takes to reach max | default = 0.3f
     private float changeRatePerSecond; // Rate at which the value speeds up 
 
- 
+
+    private void OnEnable()
+    {
+        GameManager.OnPlayerDeath += DisablePlayerMovement;
+        Boss.OnBossDeath += DisablePlayerMovement;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPlayerDeath += DisablePlayerMovement;
+        Boss.OnBossDeath += DisablePlayerMovement;
+    }
+
+
+    private void Start()
+    {
+        EnablePlayerMovement();
+    }
 
     private void Update()
     {
@@ -124,8 +142,14 @@ public class PlayerController : MonoBehaviour
         facingRight = !facingRight; // Equals opposite of current state
     }
 
-    public void Death()
+
+    // Disables character
+    private void DisablePlayerMovement()
     {
-        Destroy(gameObject);
+        rb.bodyType = RigidbodyType2D.Static;
+    }
+    private void EnablePlayerMovement()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 }

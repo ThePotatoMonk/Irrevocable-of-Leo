@@ -12,6 +12,7 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(true); z
         CreateHearts();
     }
 

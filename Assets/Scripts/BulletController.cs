@@ -33,6 +33,11 @@ public class BulletController : MonoBehaviour
         {
             collision.gameObject.GetComponent<EnemyController>().TakeDamage(1);
             Destroy(gameObject);
+        }  
+        if(collision.CompareTag("Boss"))
+        {
+            collision.gameObject.GetComponent<Boss>().TakeDamage(1);
+            Destroy(gameObject);
         }
     }
 
